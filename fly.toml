@@ -1,0 +1,20 @@
+[[services.http_checks]]
+  path = "/"
+  method = "get"
+  interval = "15s"
+  timeout = "2s"
+  protocol = "http"
+  grace_period = "1m"
+  restart_limit = 0
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.http_routes]]
+    # Redirige todas las rutas desconocidas a index.html
+    match = "*"
+    destination = "/index.html"
